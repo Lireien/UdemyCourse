@@ -44,7 +44,7 @@ const personalMovieDB = {
       console.log(personalMovieDB);
     }
   },
-  toggleVisibleMyDB: function() {
+  toggleVisibleMyDB: function () {
     if (this.privat) {
       this.privat = false;
     } else {
@@ -53,8 +53,30 @@ const personalMovieDB = {
   },
   writeYourGenres: function () {
     for (let i = 1; i <= 3; i++) {
-      personalMovieDB.genres[i - 1] = prompt(`Ваш любимый жанр под номером ${i}`, '');
+      let answer = prompt(`Ваш любимый жанр под номером ${i}`, '');
+
+      if (answer === '' || answer == null) {
+        console.log('Вы ввели некорректные данные или данные отсутствуют');
+        i--;
+      } else {
+        personalMovieDB.genres[i - 1] = answer;
+      }
     }
+
+    //или
+
+    // let genres = prompt(`Введите ваши любимые жанры через запятую`).toLowerCase();
+    // if (this.genres === '' || genres == null) {
+    //   console.log('Вы ввели некорректные данные или данные отсутствуют');
+    //   i--;
+    // } else {
+    //   personalMovieDB.genres = genres.split(', ');
+    //   personalMovieDB.genres.sort();
+    // }
+
+    personalMovieDB.genres.forEach((item, i) => {
+      console.log(`Любимй жанр №${i+1} - это ${item}`);
+    });
   },
-  
-};
+
+}

@@ -35,14 +35,22 @@ document.addEventListener('DOMContentLoaded', () => {
     movieForm.addEventListener('submit', (evt) => {
         evt.preventDefault();
 
-        const newFilm = addInput.value;
+        let newFilm = addInput.value;
         const favFilm = checkbox.checked;
 
-        movieDB.movies.push(newFilm);
-        movieDB.sort();
+        if (newFilm) {
+            if (newFilm.length > 21) {
+                newFilm = `${newFilm.substring(0, 22)}...`;
+            }
+            if (favFilm) {
+                console.log('Добавляем любимый фильм');
+            }
+            movieDB.movies.push(newFilm);
+            sortArr(movieDB.movies);
+            renderMovieList(movieDB.movies, movieList);
+        }
+        evt.target.reset();
     });
-
-
 
 
     const deleteAdv = (arr) => {
@@ -51,16 +59,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    deleteAdv(advEl);
 
-    promoGenreEl.textContent = 'ДРАМА';
+    const makeChanges = () => {
+        promoGenreEl.textContent = 'ДРАМА';
 
-    promoBgEl.style.backgroundImage = 'url("img/bg.jpg")';
+        promoBgEl.style.backgroundImage = 'url("img/bg.jpg")';
+    };
 
-    movieDB.movies.sort();
+
+    const sortArr = (arr) => {
+        arr.sort();
+    };
+
 
     function renderMovieList(films, parent) {
         parent.innerHTML = ``;
+        sortArr(films);
 
         films.forEach((film, i) => {
             parent.innerHTML +=
@@ -68,8 +82,19 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="delete"></div>
     </li>`;
         });
+
+        document.querySelectorAll('.delete').forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.remove();
+                films.splice(i, 1);
+                renderMovieList(films, parent);
+            });
+        });
+
     }
 
+    deleteAdv(advEl);
+    makeChanges();
     renderMovieList(movieDB.movies, movieList);
 
 });

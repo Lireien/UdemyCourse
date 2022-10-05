@@ -19,6 +19,6 @@ console.log(boxesQuery[0].closest('.wrapper'));
 
 // console.log(boxesQuery);
 // console.log(boxesGet);
-// // console.log(document.body.children);
+// console.log(document.body.children);
 
 // console.log(Array.from(boxesGet));

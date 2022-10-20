@@ -13,7 +13,7 @@ const userMap = new Map(Object.entries(user));
 console.log(userMap);
 
 const convertUser = Object.fromEntries(userMap);
-console.log(convertUser);
+console.log('convertUser is', convertUser);
 
 const shops = [{
     rice: 500

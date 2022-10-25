@@ -23,13 +23,13 @@ console.log(set);
 // });
 
 console.log(set.values());
-set.keys(); //для обратной совместимости с map, но возвращает то же, что в keys
+set.keys(); //для обратной совместимости с map, но возвращает то же, что в values
 console.log(set.entries());
 
 //Функция помощник, которая фильтрует любой массив
 
 function unique(arr) {
   return Array.from(new Set(arr));
-};
+}
 
 console.log(unique(arr));

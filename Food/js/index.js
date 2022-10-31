@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   document.addEventListener('keydown', (e) => {
-    if (e.code === 'Escape') {
+    if (e.code === 'Escape' && modal.classList.contains('show')) {
       closeModal();
     } 
   });

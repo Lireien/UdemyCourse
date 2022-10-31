@@ -114,9 +114,23 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  modalCloseBtn.addEventListener('click', () => {
+  modalCloseBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (evt) => {
+    if (evt.target === modal) {
+      closeModal();
+    }
+  }
+  );
+
+  function closeModal() {
     modal.classList.toggle('show');
     document.body.style.overflow = '';
-  });
+  }
 
+  document.addEventListener('keydown', (e) => {
+    if (e.code === 'Escape') {
+      closeModal();
+    } 
+  });
 });

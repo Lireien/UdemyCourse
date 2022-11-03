@@ -260,12 +260,28 @@ window.addEventListener('DOMContentLoaded', () => {
             form.reset();
             setTimeout(() => {
               statusMessage.remove();
-            }, 2000)
+            }, 2000);
           } else {
             statusMessage.textContent = message.failure;
           }
         });
     });
+  }
+
+  function showThanksModal() {
+    const prevModalDialog = document.querySelector('.modal__dialog');
+    
+    prevModalDialog.classList.add('hide');
+    openModal();
+
+    const thanksModal = document.createElement('div');
+    thanksModal.classList.add('modal__dialog');
+    thanksModal.innerHTML =   `
+      <div class="modal__content">
+        <div class="modal__close" data-close>×</div>
+        <div class="modal__title"></div>
+      </div>
+    `
   }
 
 });

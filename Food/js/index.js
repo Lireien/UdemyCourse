@@ -233,7 +233,7 @@ window.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      const statusMessage = document.createElement('img');
+      let statusMessage = document.createElement('img');
       statusMessage.src = message.loading;
       statusMessage.style.cssText = `
         display: block;
@@ -241,30 +241,30 @@ window.addEventListener('DOMContentLoaded', () => {
       `;
       form.insertAdjacentElement('afterend', statusMessage);
 
-      const request = new XMLHttpRequest();
-      request.open('POST', 'server.php');
-
-      request.setRequestHeader('Content-type', 'application/json');
       const formData = new FormData(form);
 
-      const obj = {};
-      formData.forEach((val, key) => {
-        obj[key] = val;
+      const object = {};
+      formData.forEach(function (value, key) {
+        object[key] = value;
       });
 
-      const json = JSON.stringify(obj);
-
-      request.send(json);
-      request.addEventListener('load', () => {
-        if (request.status === 200) {
-          console.log(request.response);
+      fetch('server.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(object)
+        })
+        .then(data => data.text())
+        .then(data => {
+          console.log(data);
           showThanksModal(message.success);
           statusMessage.remove();
-          form.reset();
-        } else {
+        }).catch(() => {
           showThanksModal(message.failure);
-        }
-      });
+        }).finally(() => {
+          form.reset();
+        });
     });
   }
 
@@ -290,5 +290,4 @@ window.addEventListener('DOMContentLoaded', () => {
       closeModal();
     }, 4000);
   }
-
 });
